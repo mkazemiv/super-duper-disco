@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/css/index.css') }}">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <title>New AI</title>
+  </head>
+  <body>
+    <div class="register-page-2">
+      <form class="frame-parent" action="/verify-email" method="post">
+        <input
+          class="frame-child"
+          type="text"
+          placeholder="Full name"
+          maxlength="80"
+          name="full_name"
+          tabindex="1"
+        />
+
+        <input
+          class="frame-inner"
+          type="email"
+          placeholder="Email address"
+          maxlength="40"
+          name="email"
+          tabindex="3"
+          value="{{ email }}"
+          readonly
+        />
+
+        <input type="hidden" name="password" value="{{ password }}"/>
+
+        <input
+          class="frame-child1"
+          type="text"
+          placeholder="Address"
+          maxlength="80"
+          name="address"
+          tabindex="4"
+        />
+
+        <input
+          class="frame-child5"
+          type="tel"
+          placeholder="Phone number"
+          maxlength="30"
+          name="phone"
+          tabindex="2"
+        />
+
+        <button class="submit-wrapper" type="submit">
+          <div class="submit">Submit</div>
+        </button>
+      </form>
+      
+      <!-- <a href="https://chickenkiller01-auth.auth.us-east-1.amazoncognito.com/logout?client_id=1i4957bgo7fjl9v734o5g3aq54&logout_uri=http%3A%2F%2Flocalhost%3A5000%2F">Log out</a> -->
+      
+      <b class="make-your-own">Your memories. Your legacy.</b>
+      <div class="by-registering-you">
+        By registering, you will decide how you want to be remembered!
+      </div>
+      <div class="personal-information">Personal Information</div>
+      <img
+        class="register-page-2-child"
+        alt=""
+        src="./static/register/public/rectangle-11@2x.png"
+      />
+
+      <div class="register-page-2-item"></div>
+      <div class="hope-for-humanity-parent">
+        <div class="hope-for-humanity-container">
+          <p class="hope-for">Hope for</p>
+          <p class="humanity">
+            <b>Humanity</b>
+          </p>
+        </div>
+        <div class="group-child"></div>
+        <div class="h">H</div>
+      </div>
+    </div>
+  </body>
+</html>

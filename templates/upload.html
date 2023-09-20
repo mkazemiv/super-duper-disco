@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New AI</title>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.min.css'>
+  <link rel='stylesheet' href='//cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='upload/css/style.css') }}">
+</head>
+<body>
+  <form action="/uploader" enctype="multipart/form-data" method="post" name="fileinfo">
+  <!-- partial:index.partial.html -->
+    <input type="hidden" name="data_id" value="{{ data_id }}" />
+    <h1>Image and Speech Upload</h1>
+    <div class="wrapper">
+      <div class="box">
+        <div class="js--image-preview"></div>
+        <div class="upload-options">
+          <label>
+            <input type="file" name="imgFile" class="image-upload" accept="image/*" />
+          </label>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="js--audio-preview">
+          <audio class="audio-control" controls src=""></audio>
+        </div>
+        <div class="upload-options">
+          <label>
+            <input type="file" name="audioFile" class="image-upload" accept="audio/*" />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="submit" class="formbold-btn w-full">Send File</button>
+    </div>
+  </form>
+  <!-- partial -->
+  <script src="{{ url_for('static', filename='upload/js/script.js') }}"></script>
+</body>
+</html>

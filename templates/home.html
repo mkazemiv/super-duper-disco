@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='home/css/styles.css') }}">
+  <title>User Account Home</title>
+</head>
+<body>
+  <div class="taskbar">
+    <form action="/upload" method="post">
+      <input type="hidden" name="data_id" value="{{ data_id }}" />
+      <button type="submit">Create Clip</button>
+    </form>
+    <!-- <a href="{{ url_for('upload') }}">Upload Video</a> -->
+    <!-- <button onclick="location.href='{{ url_for('upload') }}'">Upload Video</button> -->
+    <button onclick="location.href='help.html'">View Drafts</button> 
+    <button onclick="location.href='drafts.html'">Help</button>
+  </div>
+  <header>
+    <div class="header-content">
+
+      <div class="account-info">
+        <div class="account-name" id="accountName">{{ name }}</div>
+        <input type="file" accept="image/*" id="fileInput" style="display: none;">
+        <label for="fileInput">
+          <img src="./static/home/public/default_pfp.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
+        </label>
+        <div class="dropdown-menu">
+          <ul>
+            <li><a href="#">Edit Profile</a></li>
+            <li><a href="#">Change Password</a></li>
+            <li><a href="/sign-out">Logout</a></li>
+            <!-- <li><a href="https://chickenkiller01-auth.auth.us-east-1.amazoncognito.com/logout?client_id=1i4957bgo7fjl9v734o5g3aq54&logout_uri=http%3A%2F%2Flocalhost%3A5000%2F">Logout</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="main-content">
+    <section id="videoPreview">
+      <div class="search-bar">
+        <img src="./static/home/public/magnifying_glass.png" alt="Magnifying Glass Icon" class="search-icon">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search videos...">
+      </div>
+      <h2>Generated Videos</h2>
+      <div id="videoContainer">
+        <!-- Video previews will be dynamically added here -->
+      </div>
+    </section>
+  </div>
+
+  <script src="./static/home/js/script.js"></script>
+</body>
+</html>

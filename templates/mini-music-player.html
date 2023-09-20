@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mini-music-player/css/style.css') }}">
+
+    <script src="https://kit.fontawesome.com/860e7596f3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+
+    <title>New AI</title>
+</head>
+
+<body>
+    <div class="audio-container">
+        <h1>Say Something</h1>
+
+        <div class="audio-img-wrapper">
+            <div class="audio-img">
+                <video class="video">
+                    <source src="{{ filename }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <h2 class="audio-title">Title of audio</h2>
+            <h6 class="audio-singer">Singer name</h6>
+        </div>
+
+        <div class="audio-progress">
+            <div class="progress">
+                <div class="progress-bar"></div>
+                <div class="progress-head"></div>
+            </div>
+            <div class="current-time">00:00</div>
+            <div class="duration">00:00</div>
+        </div>
+
+        <div class="audio-btns">
+            <!-- <button class="btn shuffle">
+                <i class="fa-solid fa-shuffle"></i>
+            </button> -->
+
+            <button class="btn skip-back">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+
+            <button class="btn play">
+                <span> <i class="fa-solid fa-play"></i> </span>
+            </button>
+
+            <button class="btn skip-forward">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+
+            <!-- <button class="btn repeat">
+                <i class="fa-solid fa-repeat"></i>
+            </button> -->
+        </div>
+    </div>
+
+    <!--===== MAIN JS =====-->
+    <script src="{{ url_for('static', filename='mini-music-player/js/main.js') }}"></script>
+</body>
+
+</html>

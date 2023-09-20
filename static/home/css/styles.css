@@ -1,0 +1,157 @@
+/* Basic styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  border-bottom: none;  
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content {
+  padding: 20px; 
+  display: flex;
+  align-items: center;
+}
+
+
+.account-info {
+  text-align: left;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
+}
+
+.account-name {
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 1vw;
+  transition: font-size 0.2s;
+  display: inline-block;
+
+  transform: scale(1); 
+  transition: transform 0.2s;
+}
+
+.account-name:hover {
+  transform: scale(1.2);
+}
+
+.profile-picture {
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1vw;
+  z-index: 1;
+  min-width: 10vw;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  padding: 0.5vw 1vw;
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
+}
+
+.dropdown-menu li:hover {
+  background-color: #f2f2f2;
+  color: #b12323;
+}
+
+.main-content {
+  padding: 2vw;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+#videoContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr)); /* Responsive grid columns */
+  grid-gap: 2vw; /* Responsive grid gap */
+}
+
+.search-bar {
+  margin-bottom: 2vh;
+  display: flex;
+  align-items: center;
+  width: 50vw; /* Set a fixed percentage width relative to viewport width */
+}
+
+.search-icon {
+  width: 3vw; /* Adjust the width of the icon */
+  height: auto; /* Allow the height to adjust automatically based on the icon aspect ratio */
+  margin-right: 1vw;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5vw;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1vw;
+}
+
+
+/* Add more styles as needed */
+
+.taskbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 13%;
+  padding: 20px;
+  background-color: #333;
+}
+
+.taskbar button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #555;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.taskbar button:hover {
+  background: #0adab7;
+  outline: 2px solid blue;
+
+}
+.main-content {
+  margin-left: 15%; /* Adjust main content spacing */
+}

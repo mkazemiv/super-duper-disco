@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Sign Up </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sign-in/css/styles.css') }}">
+  </head>
+
+  <body>
+    <form class="login-form" action="/trial" method="POST">
+        <div class="login-form__logo-container">
+            <img class="login-form__logo" src="https://via.placeholder.com/350x150" alt="Logo">
+        </div>
+        <div class="login-form__content">
+            <div class="login-form__header">Create an account</div>
+            <input class="login-form__input" type="email" name="email" placeholder="email">
+            <input class="login-form__input" type="password" name="password" placeholder="password">
+            <button class="login-form__button" type="submit">Create Account</button>
+            <div class="login-form__links">
+              <p class="message">Already registered? <a href="/sign-in">Sign into your account</a></p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+    
+
+

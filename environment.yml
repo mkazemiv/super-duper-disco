@@ -1,0 +1,39 @@
+name: ai_env368
+channels:
+  - defaults
+dependencies:
+  - certifi=2021.5.30=py36haa95532_0
+  - ffmpeg=4.2.2=he774522_0
+  - pip=21.2.2=py36haa95532_0
+  - python=3.6.8=h9f7ef89_7
+  - setuptools=58.0.4=py36haa95532_0
+  - sqlite=3.41.2=h2bbff1b_0
+  - vc=14.2=h21ff451_1
+  - vs2015_runtime=14.27.29016=h5e58377_2
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - wincertstore=0.2=py36h7fe50ca_0
+  - pip:
+      - audioread==3.0.0
+      - cffi==1.15.1
+      - dataclasses==0.8
+      - decorator==5.1.1
+      - joblib==1.1.1
+      - librosa==0.7.0
+      - llvmlite==0.31.0
+      - numba==0.48.0
+      - numpy==1.17.1
+      - opencv-contrib-python==4.2.0.34
+      - opencv-python==4.1.0.25
+      - pillow==8.4.0
+      - pycparser==2.21
+      - resampy==0.2.2
+      - scikit-learn==0.24.2
+      - scipy==1.5.4
+      - six==1.16.0
+      - soundfile==0.12.1
+      - threadpoolctl==3.1.0
+      - torch==1.10.2
+      - torchvision==0.11.3
+      - tqdm==4.45.0
+      - typing-extensions==4.1.1
+prefix: C:\Users\shing\anaconda3\envs\ai_env368
