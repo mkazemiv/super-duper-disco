@@ -4,7 +4,7 @@ This document should help users set up their environment with the necessary conf
 **NOTE**: the following instructions are made for Windows users, so some commands may vary slightly based on your command line and/or OS.
 
 # Environment Setup
-Follow the appropriate sections of these [instructions (may need to be updated)](https://docs.google.com/document/d/1uYu-kk7q7z2wjNTK4PK_p4P8bZZrmPgu-_e_ZylhbRI/edit) for installing the respective versions of the packages required for this project.
+Follow the appropriate sections of these [instructions (may need to be updated!!)](https://docs.google.com/document/d/1uYu-kk7q7z2wjNTK4PK_p4P8bZZrmPgu-_e_ZylhbRI/edit) for installing the respective versions of the packages required for this project.
 1. Install Anaconda and the packages mentioned in the instructions under "Install Anaconda" and "Install Flask"; refer to the instructions linked above.
 2. Upon verifying the successful installation of the various packages, navigate to the directory where you'd like to clone the project, clone *this* directory, and navigate to the new directory.
 
@@ -50,7 +50,7 @@ echo Running Memorialized AI Project
 REM Run the Flask application
 flask run --host=0.0.0.0
 ```
-**NOTE**: When launching the app via Anaconda (shown later in the instructions), Anaconda uses your user home folder as the default directory. In this script, the line that says `cd test\super-duper-disco` **should navigate from *your specific user* folder directly to the *project* folder**. So, make sure to confirm that the path specified in this line of the script successfully changes directories as stated.
+**NOTE**: When launching the app via Anaconda [(shown later in the instructions)](https://github.com/mkazemiv/super-duper-disco/#running-application), Anaconda uses your user home folder as the default directory. In this script, the line that says `cd test\super-duper-disco` **should navigate from *your specific user* folder directly to the *project* folder**. So, make sure to confirm that the path specified in this line of the script successfully changes directories as stated.
 
 - Some clarification in case you're confused: In my case, for example, my user folder is `C:\Users\mkazemiv` and the `test` folder (where the project is) is located directly in my user directory, which makes navigation easy. So, from my user folder, I can simply run `cd test\super-duper-disco` and reach the project folder.
 
