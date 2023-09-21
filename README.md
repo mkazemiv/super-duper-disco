@@ -166,12 +166,21 @@ create table
 - Then, click the "URL Configuration" link on the menu that appears
 <img alt="url_config" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/3b98c149-6d77-4ade-ad8f-6ef861a814b7">
 
-7. On this page you'll see an editable field labeled "Site URL". Edit this field to `http://localhost:5000/home`. This is the URL you'll be routed to after a successful login.
-8. Then, in the "Redirect URLs" section located lower on the same page, click the green "Add URL" button and add `http://localhost:5000/` as a redirect URL. This is the URL you'll be routed to after logging out of your account.
+- On this page you'll see an editable field labeled "Site URL". Edit this field to `http://localhost:5000/home`. This is the URL you'll be routed to after a successful login.
+- Then, in the "Redirect URLs" section located lower on the same page, click the green "Add URL" button and add `http://localhost:5000/` as a redirect URL. This is the URL you'll be routed to after logging out of your account.
 
 # Running Application
 At this point, all basic setup is complete and you are ready to run the application on your local machine.
 
 1. Open the "Anaconda Navigator" app, which we installed [earlier](https://github.com/mkazemiv/super-duper-disco/#environment-setup)
-2. From the Home page of this app, launch a CMD.exe or Powershell Prompt (makes no difference)
-3. 
+2. From the Home page of this app, launch a CMD.exe or Powershell Prompt (makes no difference). This should open a window with a prompt very similar to
+```
+(base) C:\Users\mkazemiv>
+```
+- Note that as mentioned earlier, the default directory of this window is your user folder, so proper placement of the second script comes into play at this step.
+
+3. All that's left to do is to run the `start_project.bat` script (by entering its name) and the application will start.
+```
+(base) C:\Users\mkazemiv> start_project.bat
+```
+- If the app starts on a port other than 5000, you should go back to [step 6 of Supabase Setup](https://github.com/mkazemiv/super-duper-disco/#supabase-setup) and change the port numbers in the URLs.
