@@ -75,7 +75,7 @@ C:\Users\randomGithubUser\Desktop\MemorializeMe>
 - if the last two steps did not produce the expected results, then the path you've specific is incorrect and needs to be adjusted
 
 # Supabase Setup
-As we use Supabase for the backend of our application, a properly configured Supabase project is required for the application to function as expected. This part of the setup involves creating a new Supabase project, grabbing the project URL & API key from the project settings, configuring a few tables in our database, and site URL configuration.
+As we use Supabase for the backend of our application, a properly configured Supabase project is required for the application to function as expected. This part of the setup involves creating a new Supabase project, grabbing the project URL and API key from the project settings, configuring a few tables in our database, and site URL configuration.
 
 1. Open [Supabase](https://supabase.com/dashboard/projects) and create a new project with a reasonable name and region.
 
@@ -91,7 +91,7 @@ As we use Supabase for the backend of our application, a properly configured Sup
 ```
 set SUPABASE_URL=>>>YOUR_SUPABASE_URL<<<
 ```
-- The Project API keys will be just below the Project URL. Although which key you use has some security implications for your database, for now use the censored secret key (further documentation to be added later regarding this distinction). To capture this key, simply click the "Reveal" button once and then click the same button to "Copy". Then, paste this key in place of the "YOUR_SUPABASE_API_KEY" string in the next line of the script
+- The Project API keys will be just below the Project URL. Although which key you use has some security implications for your database, for now use the censored secret key (further documentation to be added later regarding this distinction!!). To capture this key, simply click the "Reveal" button once and then click the same button to "Copy". Then, paste this key in place of the "YOUR_SUPABASE_API_KEY" string in the next line of the script
 ```
 set SUPABASE_KEY=>>>YOUR_SUPABASE_API_KEY<<<
 ```
@@ -130,7 +130,6 @@ create table
     contact_relation character varying null,
     constraint users_pkey primary key (id)
   ) tablespace pg_default;
-
 ```
 - files table
 ```
@@ -160,14 +159,14 @@ create table
 <img alt="table_editor" src="https://i.imgur.com/edpEbS6.png">
 <img alt="tables_added" src="https://i.imgur.com/SoUSzKS.png">
 
-6. Lastly, we need to set our site & redirect URLs. To do this, go to the Authentication page of your project.
+6. Lastly, we need to set our site & redirect URLs. To do this, go to the Authentication page of your project:
 <img alt="auth" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/dcb289d6-f0e5-4467-90cd-32fcb190daf9">
 
 - Then, click the "URL Configuration" link on the menu that appears
 <img alt="url_config" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/3b98c149-6d77-4ade-ad8f-6ef861a814b7">
 
 - On this page you'll see an editable field labeled "Site URL". Edit this field to `http://localhost:5000/home`. This is the URL you'll be routed to after a successful login.
-- Then, in the "Redirect URLs" section located lower on the same page, click the green "Add URL" button and add `http://localhost:5000/` as a redirect URL. This is the URL you'll be routed to after logging out of your account.
+- Then, in the "Redirect URLs" section located lower on the same page, click the green "Add URL" button and add `http://localhost:5000` as a redirect URL. This is the URL you'll be routed to after logging out of your account.
 
 # Running Application
 At this point, all basic setup is complete and you are ready to run the application on your local machine.
