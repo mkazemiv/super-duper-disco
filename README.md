@@ -4,7 +4,7 @@ This document should help users set up their environment with the necessary conf
 **NOTE**: the following instructions are made for Windows users, so some commands may vary slightly based on your command line and/or OS.
 
 # Environment Setup
-Follow the appropriate sections of these [instructions (may need to be updated!!)](https://docs.google.com/document/d/1uYu-kk7q7z2wjNTK4PK_p4P8bZZrmPgu-_e_ZylhbRI/edit) for installing the respective versions of the packages required for this project.
+Follow the appropriate sections of these [instructions](https://docs.google.com/document/d/1KwgVE4nEXq8mKo89GAHjvDIA1Fd5QBqzDZBGOHnQczU/edit?usp=drive_link) for installing the respective versions of the packages required for this project.
 1. Install Anaconda and the packages mentioned in the instructions under "Install Anaconda" and "Install Flask"; refer to the instructions linked above.
 2. Upon verifying the successful installation of the various packages, navigate to the directory where you'd like to clone the project, clone *this* directory, and navigate to the new directory.
 
