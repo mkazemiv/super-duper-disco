@@ -227,6 +227,7 @@ def signout():
 	return redirect(url_for('index'))
 
 def query_by_email(email_to_fetch):
+	flash("No such user found with given credentials. Are you sure you've signed up?")
 	print("querying public.users table for", email_to_fetch, '...')
 	query = (supabase.table('users').select("*").eq('email', email_to_fetch).execute())
 
