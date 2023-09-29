@@ -25,3 +25,9 @@ replay_pid*
 
 # Batch files/scripts
 *.bat
+
+# media results
+static/results/
+
+# Byte-compiled
+__pycache__/
