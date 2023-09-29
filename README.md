@@ -47,6 +47,9 @@ call chicken.bat
 REM Display a message
 echo Running Memorialized AI Project
 
+REM Activate the debugger feature so that the app refreshes in real-time when code is edited
+set FLASK_DEBUG=1
+
 REM Run the Flask application
 flask run --host=0.0.0.0
 ```
