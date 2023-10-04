@@ -34,5 +34,5 @@ static/results/
 *.wav
 
 # Byte-compiled
-__pycache__/
+__pycache__/*.pyc
 *.pyc
