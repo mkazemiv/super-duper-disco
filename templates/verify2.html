@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Verify Email </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='verify-email/css/style.css') }}">
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="form">
+      <div class="login">
+        <div class="login-header">
+          <h3>Email Verification</h3>
+          <p>
+            Enter your account credentials below
+            Congrats, you're registered! Check your email and use the code we sent you to verify your account.<br>
+            <em>You may not log into your account until you've completed this step!</em>
+          </p>
+        </div>
+      </div>
+      <form class="login-form" action="/home" method="post">
+        <label> Email: 
+          <input type="email" name="email" />
+        </label>
+        <br>
+        <label> Password:
+          <input type="password" name="password" />
+        </label>
+        <br>
+        <label><strong>6-digit</strong> verification code:
+          <input name="otp" maxlength="6" size="3">
+        </label>
+        <button type="submit">Verify</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
