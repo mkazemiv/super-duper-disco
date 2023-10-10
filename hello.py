@@ -38,7 +38,7 @@ def subscribe_rocket():
 
 @app.route('/success/<name>')
 def success(name, audiofile):
-	return 'welcome %s %s %s' % name, file, audiofile
+	return 'welcome %s %s %s' % name, audiofile #, file
 
 @app.route('/confirm', methods = ['POST'])
 def confirm():
@@ -64,8 +64,10 @@ def upload_file():
 			audioFilename = secure_filename(audioFile.filename) # save file 
 			if audioFilename != '':
 				file_ext = os.path.splitext(audioFilename)[1]
-				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"]:
-					abort(400)
+				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"][3:]:
+					flash("Invalid file extension; audio file name should end with one of the following: " 
+		   					+ str(app.config["UPLOAD_EXTENSIONS"][3:]))
+					return redirect(url_for('upload'))
 				audioFilepath = os.path.join(UPLOAD_FOLDER, audioFilename)
 				audioFile.save(audioFilepath)
 
@@ -73,8 +75,10 @@ def upload_file():
 			imgFilename = secure_filename(imgFile.filename) # save file 
 			if imgFilename != '':
 				file_ext = os.path.splitext(imgFilename)[1]
-				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"]:
-					abort(400)
+				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"][:3]:
+					flash("Invalid file extension; image file name should end with one of the following: " 
+		   					+ str(app.config["UPLOAD_EXTENSIONS"][:3]))
+					return redirect(url_for('upload'))
 				imgFilepath = os.path.join(UPLOAD_FOLDER, imgFilename)
 				imgFile.save(imgFilepath)
 
@@ -107,29 +111,29 @@ def upload():
 	else:
 	    return render_template('upload.html')
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-	if request.method == 'POST':
-		print(request.form)
-		user = request.form['nm']
-		audiofile = request.files['audiofile']
-		return redirect(url_for('success', name=user, audiofile=audiofile))
-	else:
-		user = request.args.get('nm')
-		return redirect(url_for('success', name=user))
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+# 	if request.method == 'POST':
+# 		print(request.form)
+# 		user = request.form['nm']
+# 		audiofile = request.files['audiofile']
+# 		return redirect(url_for('success', name=user, audiofile=audiofile))
+# 	else:
+# 		user = request.args.get('nm')
+# 		return redirect(url_for('success', name=user))
 
 @app.route('/sign-up')
 def signup():
 	return render_template('sign-up.html')
 
-# these two can be merged ^
+
 @app.route('/trial', methods=['POST'])
 def free_trial():
-	# check if user already exists
+	# query DB to check if user already exists
 	queryRes = query_by_email(request.form['email'])
 	print("/trial, fetch response:", queryRes)
 	
-	# Check for non-None response
+	# if user does exist...
 	if queryRes != None:
 		global currEmail; currEmail = queryRes['email']
 		print("/trial: user already exists, redirecting to /home...")
@@ -138,67 +142,94 @@ def free_trial():
 	return render_template('register.html', email=request.form['email'], password=request.form['password'])
 
 # serves as a buffer that allows user to verify email and then get into acct via emailed verification link
-@app.route('/verify-email', methods=['POST'])
+@app.route('/verify-email', methods=['POST', 'GET'])
 def verify():
-	print('/verify', request.method)
-	print("url:", request.url)
-	if request.method != 'POST':
+	print('/verify; request data:', request.form)
+	# if request.method != 'POST':
 		# TODO: make static/ files for 400
 		# endpoint should only be reachable after sign-up
-		return render_template('400.html')
-	
-	res = supabase.auth.sign_up({
-		"email": request.form['email'],
-		"password": request.form['password']
-	})
-	print("sign_up() res:", res)
+		# return render_template('400.html')
+	if request.method == 'POST':
+		res = supabase.auth.sign_up({
+			"email": request.form['email'],
+			"password": request.form['password']
+		})
+		print("sign_up() res:", res)
 
-	post_dict = request.form.to_dict()
-	print("data before del (post_dict):", post_dict)
-	# delete password since we passed it secretly, but don't want to insert it into db 
-	del post_dict['password']
+		post_dict = request.form.to_dict()
+		# delete password since we passed it secretly, but don't want to insert it into db 
+		del post_dict['password']
 
-	print("inserting new user data into db (post_dict):", post_dict)
-	data, count = (supabase.table('users').insert(post_dict).execute())
-	print("insertion return data:", data)
-	global currEmail; currEmail = request.form['email']
-	print('/verify, email:', currEmail)
+		print("inserting new user data into db (post_dict):", post_dict)
+		data, count = supabase.table('users').insert(post_dict).execute()
+		print("insertion return data:", data)
 
-	# print('res.user:', res.user)
-	# response = res.user.json()
-	# print("user.json:", response)
-	# data_list = json.loads(response)
-	# confirmed = data_list['app_metadata']['email_confirmed_at']
-	# if confirmed_at == None:
-	# 	# user was created but email hasn't been confirmed yet
-	# 	redirect(url_for('verify'))
-
-	return render_template('verify.html') #, email=currEmail, password=request.form['password'])
+		return render_template('verify.html', email=request.form['email'], password=request.form['password'])
+	else:
+		return render_template('verify2.html')
 
 @app.route('/sign-in')
 def signin():
 	return render_template('sign-in.html')
 
+# use /verify-email as field for user to enter OTP code
+# whether post or get, have links to sign in/up pages and 
+
 @app.route('/home', methods=['POST', 'GET'])
 def home():
 	global currEmail
 	queryRes = None
-	print("url:", request.url)
-	
+	# print(type(request.form))
 	if request.method == 'POST':
 		queryRes = query_by_email(request.form['email'])
+
+		# if user attempting to sign in exists...
 		if queryRes != None:
-			try:
-				data = supabase.auth.sign_in_with_password({
-					"email": request.form['email'],
-					"password": request.form['password']
-				})
-				# print("signin ret data:", data)
-				currEmail = request.form['email']
-				print("signed in as user", currEmail)
-			except Exception as ex:
-				# most likely AuthApiError
-				print("exception caught:", type(ex).__name__, ex.__class__.__name__, ex.__class__.__qualname__)
+			# user signing in is verified, so sign-in & update `currEmail`
+			if queryRes['verified'] == True:
+				try:
+					supabase.auth.sign_in_with_password({
+						"email": request.form['email'],
+						"password": request.form['password']
+					})
+					currEmail = request.form['email']
+					print("signed in as user", currEmail)
+				except Exception as ex:
+					# most likely AuthApiError
+					print("Sign-in exception caught:", type(ex).__name__)
+					flash("Sign-in exception caught:", type(ex).__name__)
+					return redirect(url_for('signin'))
+			# user isn't verified but a(n) OTP is supplied (first-time sign-in)
+			elif queryRes['verified'] == False and request.form['otp']:
+				try:
+					verifyRes = supabase.auth.verify_otp({
+						'email': request.form['email'], 
+						'token': request.form['otp'], 
+						'type': 'signup'
+					})
+					print('/home, verifyOTP result:', verifyRes)
+
+					# update verification status
+					supabase.auth.sign_in_with_password({
+						"email": request.form['email'],
+						"password": request.form['password']
+					})
+
+					# set global `currEmail` to the given email
+					currEmail = request.form['email']
+					
+					# update user's verification status
+					data, count = (supabase
+						.table('users')
+						.update({'verified': True})
+						.eq('email', request.form['email'])
+						.execute()
+					)
+					print('update reponse:', data)
+				except Exception as ex:
+					print("exception caught:", type(ex).__name__)
+					# flash("exception caught:", type(ex).__name__)
+					# return redirect(url_for('signin'))
 		else:
 			print("user siging in DNE, redirecting to /sign-in...")
 			return redirect(url_for('signin'))
@@ -216,7 +247,6 @@ def home():
 	else:
 		print("user DNE in db")
 		return redirect(url_for('free_trial'))
-	# TODO: handle case where user signing in is not confirmed
 
 @app.route('/sign-out')
 def signout():
@@ -227,9 +257,9 @@ def signout():
 	return redirect(url_for('index'))
 
 def query_by_email(email_to_fetch):
-	flash("No such user found with given credentials. Are you sure you've signed up?")
+	
 	print("querying public.users table for", email_to_fetch, '...')
-	query = (supabase.table('users').select("*").eq('email', email_to_fetch).execute())
+	query = supabase.table('users').select("*").eq('email', email_to_fetch).execute()
 
 	if query.data != []:
 		response = query.json(exclude_none=True)
@@ -239,6 +269,7 @@ def query_by_email(email_to_fetch):
 		return data_list['data'][0]
 	else:
 		print("retruned None, no such user found in db")
+		flash("No user found. Are you using the right credentials?")
 		return None
 
 if __name__ == '__main__':

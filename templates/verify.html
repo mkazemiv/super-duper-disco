@@ -15,17 +15,19 @@
           <div class="login-header">
             <h3>Email Verification</h3>
             <p>
-              Please check your email and use the link we sent you to verify your account.<br>
-              You will be redirected to your account using that link so you may close this tab at
-              any time <s>or use the button below to navigate to your user account home page</s>.
+              Congrats, you're registered! Check your email and use the code we sent you to verify your account.<br>
+              <em>You may not log into your account until you've completed this step!</em>
             </p>
           </div>
         </div>
-        <!-- <form class="login-form" action="/home2" method="post">
+        <form class="login-form" action="/home" method="post">
+          <label><strong>6-digit</strong> verification code:
+            <input name="otp" maxlength="6" size="3">
+          </label>
           <input type="hidden" name="email" value="{{ email }}" />
           <input type="hidden" name="password" value="{{ password }}" />
-          <button type="submit">I'm already verified!</button>
-        </form> -->
+          <button type="submit">Verify</button>
+        </form>
       </div>
     </div>
   </body>
