@@ -1,4 +1,4 @@
-# MemorializedMe AI Project
+![image](https://github.com/mkazemiv/super-duper-disco/assets/47222610/e33e3042-69ba-45c5-a327-f8b1fedfcf5b)# MemorializedMe AI Project
 This document should help users set up their environment with the necessary configuration in order to run the MemorializedMe AI project locally.
 
 **NOTE**: the following instructions are made for Windows users, so some commands may vary slightly based on your command line and/or OS.
@@ -82,7 +82,7 @@ As we use Supabase for the backend of our application, a properly configured Sup
 
 1. Open [Supabase](https://supabase.com/dashboard/projects) and create a new project with a reasonable name and region.
 
-2. After Supabase sets up the project (may take a few minutes), you'll be redirected to your project home screen. From there, go to the "Project Settings" page using the gear-shaped button at the bottom of the navigation menu on the far left.
+2. After Supabase sets up your new project (may take a few minutes), you'll be redirected to your project home screen. From there, go to the "Project Settings" page using the gear-shaped button at the bottom of the navigation menu on the far left.
 <img alt="project_settings" src="https://i.imgur.com/9y2yCbm.png">
 
 3. Click the "API" button to reach the API Settings page for your project.
@@ -162,17 +162,32 @@ create table
 <img alt="table_editor" src="https://i.imgur.com/edpEbS6.png">
 <img alt="tables_added" src="https://i.imgur.com/SoUSzKS.png">
 
-6. Lastly, we need to set our site & redirect URLs. To do this, go to the Authentication page of your project:
+6. Now we need to set our site & redirect URLs. To do this, go to the Authentication page of your project:
 <img alt="auth" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/dcb289d6-f0e5-4467-90cd-32fcb190daf9">
 
 - Then, click the "URL Configuration" link on the menu that appears
 <img alt="url_config" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/3b98c149-6d77-4ade-ad8f-6ef861a814b7">
 
-- On this page you'll see an editable field labeled "Site URL". Edit this field to `http://localhost:5000/home`. This is the URL you'll be routed to after a successful login.
+- On this page, you'll see an editable field labeled "Site URL". Edit this field to `http://localhost:5000/home`. This is the URL you'll be routed to after successful login/verification.
 - Then, in the "Redirect URLs" section located lower on the same page, click the green "Add URL" button and add `http://localhost:5000` as a redirect URL. This is the URL you'll be routed to after logging out of your account.
 
+7. Since we use a one-time password (OTP) for new account verification, the 'Confirm signup' email template needs to be edited to include the OTP that the user needs to verify their account.
+- While still on the Authentication page, go to the "Email Templates" subsection
+<img alt="email_template" src="https://github.com/mkazemiv/super-duper-disco/assets/47222610/c2f5e07c-c5a4-406b-ba0a-853a438e6fbc">
+
+- Here, replace the existing "Message body" template with this HTML template:
+```html
+<h2>Verification Code: {{ .Token }}</h2>
+
+<p>Closed the verification page by accident? No worries!<br>
+Click <a href="{{ .SiteURL }}">here</a> to return to the verification form.<br>
+<em>NOTE:</em> if using the link above, you'll have to manually reenter your account credentials to verify.
+</p>
+```
+- Optionally, you may change the "Subject heading" field as well to better clarify the purpose of the email: `MemorializedMe | Account Verification Code`
+
 # Running Application
-At this point, all basic setup is complete and you are ready to run the application on your local machine.
+All basic setup is complete and you are ready to run the application on your local machine.
 
 1. Open the "Anaconda Navigator" app, which we installed [earlier](https://github.com/mkazemiv/super-duper-disco/#environment-setup)
 2. From the Home page of this app, launch a CMD.exe or Powershell Prompt (makes no difference). This should open a window with a prompt very similar to
