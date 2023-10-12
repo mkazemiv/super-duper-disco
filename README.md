@@ -1,4 +1,4 @@
-![image](https://github.com/mkazemiv/super-duper-disco/assets/47222610/e33e3042-69ba-45c5-a327-f8b1fedfcf5b)# MemorializedMe AI Project
+# MemorializedMe AI Project
 This document should help users set up their environment with the necessary configuration in order to run the MemorializedMe AI project locally.
 
 **NOTE**: the following instructions are made for Windows users, so some commands may vary slightly based on your command line and/or OS.
