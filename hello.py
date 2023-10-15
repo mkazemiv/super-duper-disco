@@ -10,7 +10,7 @@ import json
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
-is_signed_in = False
+site_url = 'http://localhost:5000'
 currEmail = ''
 
 UPLOAD_FOLDER = 'static/results/'
@@ -67,7 +67,7 @@ def upload_file():
 				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"][3:]:
 					flash("Invalid file extension; audio file name should end with one of the following: " 
 		   					+ str(app.config["UPLOAD_EXTENSIONS"][3:]))
-					return redirect(url_for('upload'))
+					return render_template('upload.html', data_id=request.form['data_id'])
 				audioFilepath = os.path.join(UPLOAD_FOLDER, audioFilename)
 				audioFile.save(audioFilepath)
 
@@ -78,7 +78,7 @@ def upload_file():
 				if file_ext.lower() not in app.config["UPLOAD_EXTENSIONS"][:3]:
 					flash("Invalid file extension; image file name should end with one of the following: " 
 		   					+ str(app.config["UPLOAD_EXTENSIONS"][:3]))
-					return redirect(url_for('upload'))
+					return render_template('upload.html', data_id=request.form['data_id'])
 				imgFilepath = os.path.join(UPLOAD_FOLDER, imgFilename)
 				imgFile.save(imgFilepath)
 
@@ -109,6 +109,7 @@ def upload():
 		data_id = request.form['data_id']
 		return render_template('upload.html', data_id=data_id)
 	else:
+		# TODO render 400 instead of upload.html
 	    return render_template('upload.html')
 
 # @app.route('/login', methods=['POST', 'GET'])
@@ -148,13 +149,12 @@ def verify():
 	# if request.method != 'POST':
 		# TODO: make static/ files for 400
 		# endpoint should only be reachable after sign-up
-		# return render_template('400.html')
 	if request.method == 'POST':
 		res = supabase.auth.sign_up({
 			"email": request.form['email'],
 			"password": request.form['password']
 		})
-		print("sign_up() res:", res)
+		print("sign_up() AuthResponse:", res)
 
 		post_dict = request.form.to_dict()
 		# delete password since we passed it secretly, but don't want to insert it into db 
@@ -255,6 +255,28 @@ def signout():
 	supabase.auth.sign_out()
 	currEmail = ''
 	return redirect(url_for('index'))
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def pw_reset_req():
+	if request.method == 'GET':
+		# user entering email for password reset
+		return render_template('forgot-password.html')
+	else:
+		# processing pw reset req
+		supabase.auth.reset_password_email(
+						email = request.form['email'],
+						options = {redirect: site_url+'/update-password'}
+					)
+		return render_template('reset-email-sent.html')
+
+@app.route('/reset-password')
+def reset_password():
+	data, count = (supabase
+					.table('users')
+					.update({'password': '<< PASSWORD >>'})
+					.eq('email', request.form['email'])
+					.execute()
+				)
 
 def query_by_email(email_to_fetch):
 	
