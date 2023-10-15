@@ -28,10 +28,6 @@ replay_pid*
 
 # media results
 static/results/
-*.png
-*.jpeg
-*.jpg
-*.wav
 
 # Byte-compiled
 __pycache__/
