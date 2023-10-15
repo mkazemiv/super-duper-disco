@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 <html>
-{% with messages = get_flashed_messages() %} {% if messages %}
-<ul class="flashes">
-    {% for message in messages %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <span>{{ message }}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {% endfor %}
-</ul>
-{% endif %} {% endwith %} {% block body %}{% endblock %}
 
 <head>
     <title>Login</title>
@@ -22,6 +10,17 @@
 </head>
 
 <body>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+            <span class="dismissBtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %} {% block body %}{% endblock %}
+
     <form class="login-form" action="/home" method="POST">
         <div class="login-form__logo-container">
             <img class="login-form__logo" src="{{ url_for('static', filename='sign-in/mmBird.jpeg') }}" alt="Logo" />
