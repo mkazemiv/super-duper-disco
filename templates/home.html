@@ -41,6 +41,7 @@
   
   <div class="main-content">
     <section id="videoPreview">
+
       <div class="search-bar">
         <img src="./static/home/public/magnifying_glass.png" alt="Magnifying Glass Icon" class="search-icon">
         <input type="text" class="search-input" id="searchInput" placeholder="Search videos...">
@@ -48,6 +49,12 @@
       <h2>Generated Videos</h2>
       <div id="videoContainer">
         <!-- Video previews will be dynamically added here -->
+        {% for vid in vidList %}
+
+        <video class="video" width="30%" height="auto" src={{vid}} type='video/mp4' controls="controls"></video>
+
+        {% endfor %}
+
       </div>
     </section>
   </div>

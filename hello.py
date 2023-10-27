@@ -6,6 +6,7 @@ from supabase import create_client, Client
 import traceback
 import logging
 import json
+import d_id
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
@@ -83,7 +84,10 @@ def upload_file():
 				imgFile.save(imgFilepath)
 
 			outputFilename = f"merge-{data_id}.mp4"
+			print("hahahahahahahaah", outputFilename, "weeeeeeeeeeeeeeeeeeeeeeeee")
 			outputFilepath = UPLOAD_FOLDER + outputFilename
+
+			d_id.merge(audioFilename, imgFilename)
 
 			data, count = (supabase
 			.table('files') 
@@ -170,7 +174,9 @@ def verify():
 
 @app.route('/sign-in')
 def signin():
-	return render_template('sign-in.html')
+	img = os.path.join('static', 'sign-in')
+	file = os.path.join(img, 'mmBird.jpeg')
+	return render_template('sign-in.html', image=file)
 
 # use /verify-email as field for user to enter OTP code
 # whether post or get, have links to sign in/up pages and 
@@ -185,6 +191,9 @@ def home():
 
 		# if user attempting to sign in exists...
 		if queryRes != None:
+			print("qyryhmaofnd")
+			print(queryRes['verified'])
+			print("reoaodsadjas;da")
 			# user signing in is verified, so sign-in & update `currEmail`
 			if queryRes['verified'] == True:
 				try:
@@ -242,8 +251,16 @@ def home():
 		queryRes = query_by_email(currEmail)
 	# print("/home, fetch response:", query.data)
 
+	#populate vidList with all files ending in mp4 located in static/results
+	vidList = []
+	for filename in os.listdir(UPLOAD_FOLDER):
+		if filename.endswith(".mp4"):
+			vidList.append(UPLOAD_FOLDER + filename)
+			print(filename)
+		else:
+			continue
 	if queryRes != None:
-		return render_template('home.html', data_id = queryRes['id'], name = queryRes['full_name'])
+		return render_template('home.html', data_id = queryRes['id'], name = queryRes['full_name'], vidList=vidList)
 	else:
 		print("user DNE in db")
 		return redirect(url_for('free_trial'))

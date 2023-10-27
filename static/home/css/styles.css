@@ -95,12 +95,6 @@ h2 {
   margin-top: 0;
 }
 
-#videoContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr)); /* Responsive grid columns */
-  grid-gap: 2vw; /* Responsive grid gap */
-}
-
 .search-bar {
   margin-bottom: 2vh;
   display: flex;
