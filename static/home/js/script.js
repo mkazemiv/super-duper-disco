@@ -1,31 +1,31 @@
 //API url: https://sguaqrtddeaqpoiqarhg.supabase.co
-const mockUserData = {
-    generatedVideos: [
-      { id: 1, title: "Video 1", thumbnail: "video1.jpg" },
-      { id: 2, title: "Video 2", thumbnail: "video2.jpg" },
-      // Add more video objects as needed
-    ]
-  };
+// const mockUserData = {
+//     generatedVideos: [
+//       { id: 1, title: "Video 1", thumbnail: "video1.jpg" },
+//       { id: 2, title: "Video 2", thumbnail: "video2.jpg" },
+//       // Add more video objects as needed
+//     ]
+//   };
   
   
-  // Populate video previews
-  const videoContainer = document.getElementById("videoContainer");
-  const searchInput = document.getElementById("searchInput");
+//   // Populate video previews
+//   const videoContainer = document.getElementById("videoContainer");
+//   const searchInput = document.getElementById("searchInput");
   
-  function renderVideos(videos) {
-    videoContainer.innerHTML = "";
-    videos.forEach(video => {
-      const videoPreview = document.createElement("div");
-      videoPreview.className = "video-preview";
-      videoPreview.innerHTML = `
-        <img src="${video.thumbnail}" alt="${video.title}">
-        <h3>${video.title}</h3>
-      `;
-      videoContainer.appendChild(videoPreview);
-    });
-  }
+//   function renderVideos(videos) {
+//     videoContainer.innerHTML = "";
+//     videos.forEach(video => {
+//       const videoPreview = document.createElement("div");
+//       videoPreview.className = "video-preview";
+//       videoPreview.innerHTML = `
+//         <img src="${video.thumbnail}" alt="${video.title}">
+//         <h3>${video.title}</h3>
+//       `;
+//       videoContainer.appendChild(videoPreview);
+//     });
+//   }
   
-  renderVideos(mockUserData.generatedVideos);
+//   renderVideos(mockUserData.generatedVideos);
   
   // Search functionality
   searchInput.addEventListener("input", function () {

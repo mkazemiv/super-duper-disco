@@ -9,6 +9,7 @@ def merge(audioFilename, imgFilename):
     #setting up audio
     url = "https://api.d-id.com/audios"
     audioFilepath = os.path.join(UPLOAD_FOLDER, audioFilename)
+    
     print("audioFilepath", audioFilepath)
     files = { "audio": (audioFilename, open(audioFilepath, "rb"), "audio/mpeg") }
     headers = {
@@ -25,7 +26,6 @@ def merge(audioFilename, imgFilename):
     imgFilepath = os.path.join(UPLOAD_FOLDER, imgFilename)
     source_url = f"https://3046.chickenkiller.com/{imgFilepath}"
     print("source_url", source_url)
-    source_url = "https://3046.chickenkiller.com/static/results/man5.jpg"
     payload = {
         "script": {
             "type": "audio",
@@ -43,7 +43,7 @@ def merge(audioFilename, imgFilename):
             "pad_audio": "0.0"
         },
         "source_url": source_url,
-        "webhook": "https://discord.com/api/webhooks/1136563031548108900/Jly73sIZdzD9KymViywrP6Eg9eBbuVRZAcLGfFh4Sb2sVCgwJQkHzjkuem04K9u7vka7"
+        "webhook": "https://discord.com/api/webhooks/1159274754205814834/jmpiTGXX_0nqJAIzh0Q8W5tNJXBww8NUM-TOvlvD6LfnadVm9ojynbveX34RHdo40Um8"
     }
     headers = {
         "accept": "application/json",
@@ -54,6 +54,7 @@ def merge(audioFilename, imgFilename):
     print(response.json())
 
     talk_id = response.json()["id"]
+    #talk_id = "tlk_Z6J_EI2tPk_2Afwv4qtqQ"
     url = "https://api.d-id.com/talks/" + talk_id
     headers = {
         "accept": "application/json",
