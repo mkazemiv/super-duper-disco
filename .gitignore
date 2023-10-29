@@ -30,6 +30,5 @@ replay_pid*
 static/results/*
 
 # Byte-compiled
-__pycache__/
-__pycache__/*.pyc
+__pycache__/*
 *.pyc
