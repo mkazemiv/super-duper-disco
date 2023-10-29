@@ -2,6 +2,19 @@
 <html>
 
 <head>
+    <script>
+        function validateForm() {
+          let e = document.forms["sign-in-form"]["email"].value;
+          let pw = document.forms["sign-in-form"]["password"].value;
+          if (e == "") {
+            alert("Email field is required!");
+            return false;
+          } else if (pw == "") {
+            alert("Password field is required!");
+            return false;
+          }
+        }
+      </script>
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
@@ -21,7 +34,7 @@
     </ul>
     {% endif %} {% endwith %} {% block body %}{% endblock %}
 
-    <form class="login-form" action="/home" method="POST">
+    <form class="login-form" name="sign-in-form" action="/home" onsubmit="return validateForm()" method="POST">
         <div class="login-form__logo-container">
             <img class="login-form__logo" src="{{ url_for('static', filename='sign-in/mmBird.jpeg') }}" alt="Logo" />
         </div>

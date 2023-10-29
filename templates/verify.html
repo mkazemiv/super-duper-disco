@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Verify Email </title>
+    <title>Verification</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
@@ -13,15 +13,15 @@
       <div class="form">
         <div class="login">
           <div class="login-header">
-            <h3>Email Verification</h3>
+            <h3>Verification</h3>
             <p>
-              Congrats, you're registered! Check your email and use the code we sent you to verify your account.<br>
+              Check your email and use the code we sent you to verify your request.<br>
               <em>You may not log into your account until you've completed this step!</em>
             </p>
           </div>
         </div>
         <form class="login-form" action="/home" method="post">
-          <label><strong>6-digit</strong> verification code:
+          <label><strong>6-digit</strong> code:
             <input name="otp" maxlength="6" size="3">
           </label>
           <input type="hidden" name="email" value="{{ email }}" />

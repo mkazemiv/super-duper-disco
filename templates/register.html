@@ -18,7 +18,7 @@
   </head>
   <body>
     <div class="register-page-2">
-      <form class="frame-parent" action="/verify-email" method="post">
+      <form class="frame-parent" action="/verify" method="post">
         <input
           class="frame-child"
           type="text"
@@ -39,6 +39,7 @@
           readonly
         />
 
+        <input type="hidden" name="password" value="{{ password }}"/>
         <input type="hidden" name="password" value="{{ password }}"/>
 
         <input
