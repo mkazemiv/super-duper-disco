@@ -2,17 +2,19 @@ from flask import Flask, flash, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 import os, requests
 from requests import get
-from supabase import create_client, Client
+from supabase import create_client, Client #, ClientOptions
 import traceback
 import logging
 import json
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
+# options = ClientOptions()
+# options.headers = {"persistSession": False}
 supabase: Client = create_client(url, key)
+# supabase.storage.from_('gfgg')
 site_url = 'http://localhost:5000'
 currEmail = ''
-
 UPLOAD_FOLDER = 'static/results/'
 
 app = Flask(__name__)
@@ -86,7 +88,7 @@ def upload_file():
 			outputFilepath = UPLOAD_FOLDER + outputFilename
 
 			data, count = (supabase
-			.table('files') 
+			.table('files')
 			.insert({
 				"output_file": outputFilepath,
 				"user_id": data_id,
@@ -127,7 +129,6 @@ def upload():
 def signup():
 	return render_template('sign-up.html')
 
-
 @app.route('/trial', methods=['POST'])
 def free_trial():
 	# query DB to check if user already exists
@@ -143,9 +144,9 @@ def free_trial():
 	return render_template('register.html', email=request.form['email'], password=request.form['password'])
 
 # serves as a buffer that allows user to verify email and then get into acct via emailed verification link
-@app.route('/verify-email', methods=['POST', 'GET'])
+@app.route('/verify', methods=['POST', 'GET'])
 def verify():
-	print('/verify; request data:', request.form)
+	print('/verify, request data:', request.form)
 	# if request.method != 'POST':
 		# TODO: make static/ files for 400
 		# endpoint should only be reachable after sign-up
@@ -170,6 +171,9 @@ def verify():
 
 @app.route('/sign-in')
 def signin():
+	if currEmail != '':
+		# bypassing sign-in page if user is already logged in
+		return redirect(url_for('home'))
 	return render_template('sign-in.html')
 
 # use /verify-email as field for user to enter OTP code
@@ -182,7 +186,6 @@ def home():
 	# print(type(request.form))
 	if request.method == 'POST':
 		queryRes = query_by_email(request.form['email'])
-
 		# if user attempting to sign in exists...
 		if queryRes != None:
 			# user signing in is verified, so sign-in & update `currEmail`
@@ -197,7 +200,8 @@ def home():
 				except Exception as ex:
 					# most likely AuthApiError
 					print("Sign-in exception caught:", type(ex).__name__)
-					flash("Sign-in exception caught:", type(ex).__name__)
+					# TODO is this the only possibility?
+					flash("Login error: incorrect password")
 					return redirect(url_for('signin'))
 			# user isn't verified but a(n) OTP is supplied (first-time sign-in)
 			elif queryRes['verified'] == False and request.form['otp']:
@@ -250,7 +254,7 @@ def home():
 
 @app.route('/sign-out')
 def signout():
-	global currEmail; 
+	global currEmail
 	print("signing out from", currEmail)
 	supabase.auth.sign_out()
 	currEmail = ''
@@ -262,21 +266,48 @@ def pw_reset_req():
 		# user entering email for password reset
 		return render_template('forgot-password.html')
 	else:
-		# processing pw reset req
+		# processing pw reset email
+		# TODO: handle 'gotrue.errors.AuthApiError: For security purposes, you can only request this once every 60 seconds'
 		supabase.auth.reset_password_email(
 						email = request.form['email'],
-						options = {redirect: site_url+'/update-password'}
+						options = {'redirect_to': site_url+'/update-password'}
 					)
 		return render_template('reset-email-sent.html')
 
-@app.route('/reset-password')
+@app.route('/update-password', methods=['GET', 'POST'])
 def reset_password():
-	data, count = (supabase
-					.table('users')
-					.update({'password': '<< PASSWORD >>'})
-					.eq('email', request.form['email'])
-					.execute()
-				)
+	if request.method == 'GET':
+		return render_template('verify2.html')
+	else:
+		global currEmail
+		print('form data:', request.form)
+		siwotp = supabase.auth.verify_otp({
+						'email': request.form['email'],
+						'token': request.form['otp'],
+						'type': 'recovery'
+					})
+		print('sign in result:', siwotp)
+		try:
+			currUser = supabase.auth.get_user()
+			print('get_user():', currUser)
+			currEmail = request.form['email']
+		except Exception as ex:
+			print('get_user() exception:', ex)
+
+		try:
+			supabase.auth.update_user({'password': request.form['new_password']})
+			queryRes = query_by_email(currEmail)
+			if queryRes != None:
+				return redirect(url_for('home'))
+			else:
+				print("user DNE in db")
+				currEmail = ''
+				return redirect(url_for('free_trial'))
+		except Exception as ex:
+			print("Password update exception caught:", type(ex).__name__)
+			flash("Password update exception caught:", type(ex).__name__)
+			# TODO 500 Exception caught
+			return render_template('500.html')
 
 def query_by_email(email_to_fetch):
 	
