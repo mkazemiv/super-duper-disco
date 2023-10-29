@@ -29,6 +29,7 @@ replay_pid*
 # media results
 static/results/*
 !static/results/
+!static/results/dummy
 
 # Byte-compiled
 __pycache__/*
